@@ -2,6 +2,8 @@
 
 namespace App\Services;
 
+use App\Events\AuthEvent;
+use App\Jobs\AuthUserJobs;
 use App\Jobs\EmailCodeJob;
 use App\Models\User;
 use Illuminate\Support\Facades\Cache;
@@ -68,7 +70,7 @@ class AuthServices
 
         // Token yaratish
         $token = $user->createToken('auth_token')->plainTextToken;
-
+    AuthUserJobs::dispatch($user);
         return [
             'status' => 'muvaffaqiyatli',
             'message' => 'Tasdiqlash muvaffaqiyatli',

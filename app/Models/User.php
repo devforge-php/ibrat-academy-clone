@@ -3,6 +3,9 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+use App\Models\Adress;
+use App\Models\Profile;
+use App\Models\TaypOfActivity;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -41,4 +44,17 @@ class User extends Authenticatable
    
 
     ];
+
+    public function profile()
+    {
+        return $this->hasOne(Profile::class);
+    }
+    public function Adress()
+    {
+        return $this->hasOne(Adress::class);
+    }
+    public function TaypOfActivity()
+    {
+        return $this->hasOne(TaypOfActivity::class);
+    }
 }
