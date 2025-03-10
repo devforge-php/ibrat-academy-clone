@@ -22,12 +22,17 @@ class UserTaypOfActivityListener
      */
     public function handle(AuthEvent $event): void
     {
-        TaypOfActivity::create([
-            'user_id' => $event->user->id,
-            'type_of_activity' => '',
-            'province' => '',
-            'district' => '',
-            'organization_name' => '',
-        ]);
+        // Foydalanuvchining faoliyat turi mavjudligini tekshiramiz
+        $existingActivity = TaypOfActivity::where('user_id', $event->user->id)->first();
+
+        if (!$existingActivity) {
+            TaypOfActivity::create([
+                'user_id' => $event->user->id,
+                'type_of_activity' => '',
+                'province' => '',
+                'district' => '',
+                'organization_name' => '',
+            ]);
+        }
     }
 }

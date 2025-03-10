@@ -22,12 +22,17 @@ class UserAdressListener
      */
     public function handle(AuthEvent $event): void
     {
-        Adress::create([
-            'user_id' => $event->user->id,
-            'country' => '',
-            'provice' => '',
-            'district' => '',
-            'local_comunity' => '',
-        ]);
+        // Foydalanuvchi manzili mavjudligini tekshiramiz
+        $existingAddress = Adress::where('user_id', $event->user->id)->first();
+
+        if (!$existingAddress) {
+            Adress::create([
+                'user_id' => $event->user->id,
+                'country' => '',
+                'provice' => '',
+                'district' => '',
+                'local_comunity' => '',
+            ]);
+        }
     }
 }
